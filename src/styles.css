@@ -41,3 +41,6 @@
 .clue-audio{display:block;width:100%;margin:18px 0 8px}
 
 .brand-home{border:0;background:transparent;color:var(--ink);padding:0;text-align:left}.brand-home:hover{color:var(--gold)}
+
+/* Clue combination modal */
+.combination-options{max-height:34vh;overflow:auto;margin:12px 0}.selected-clues{border:1px solid var(--line);padding:12px;margin:16px 0}.selected-clue{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:6px 0}.selected-clue:last-child{border-bottom:0}.combination-options .note-item.selected,.combination-result{border-color:var(--gold)}.combination-result{margin:12px 0}.combination-options button:disabled,.modal-actions button:disabled{opacity:.42;cursor:not-allowed}
