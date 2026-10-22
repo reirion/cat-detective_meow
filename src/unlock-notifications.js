@@ -27,6 +27,7 @@ export function captureUnlockStates(episode, progress, canUnlock) {
     const category = state === 'password' ? 'passwordUnlocked' : 'clueUnlocked';
     states.set(`clue:${item.id}`, {
       key: `clue:${item.id}`, id: item.id, name: item.name, kind: 'clue', state, category,
+      conditional: Boolean(item.requires),
       locationText: locationFor(episode, item, 'clue')
     });
   }
@@ -36,6 +37,7 @@ export function captureUnlockStates(episode, progress, canUnlock) {
     const state = canUnlock(suspect.requires) ? 'available' : 'locked';
     states.set(`target:${suspect.id}`, {
       key: `target:${suspect.id}`, id: suspect.id, name: suspect.name, kind: 'target', state,
+      conditional: true,
       category: 'clueUnlocked', locationText: locationFor(episode, { ...suspect, locationText: suspect.locationText }, 'target')
     });
   }
@@ -47,11 +49,18 @@ export function captureUnlockStates(episode, progress, canUnlock) {
       const item = { ...testimony, suspectId: testimony.suspectId || witness.id, locationText: testimony.locationText };
       states.set(`testimony:${testimony.id}`, {
         key: `testimony:${testimony.id}`, id: testimony.id, name: testimony.name || '새로운 증언', kind: 'testimony', state,
+        conditional: true,
         category: 'testimonyUnlocked', locationText: locationFor(episode, item, 'testimony')
       });
     }
   }
   return states;
+}
+
+export function currentlyUnlockedUnacknowledged(states, acknowledged = []) {
+  const seen = new Set(acknowledged);
+  return [...states.values()].filter(item => item.conditional &&
+    ['available', 'password'].includes(item.state) && !seen.has(item.key));
 }
 
 export function newlyUnlocked(before, after, alreadyNotified = []) {
