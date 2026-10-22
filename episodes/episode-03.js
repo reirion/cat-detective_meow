@@ -11,6 +11,7 @@ export const episode3 = {
   subtitle: '드라켄펠스 성의 비극',
   intro: '22시, 드라켄펠스 성의 잠긴 집무실에서 영주 올렉이 숨진 채 발견됐다. 단검과 독, 지연된 소리, 숨겨진 통로에 얽힌 진실을 밝혀내자.',
   investigationTurns: 19,
+  notifications: { clueUnlocked: '성 안에서 새로운 조사 단서가 열렸습니다.', testimonyUnlocked: '새로운 증언을 확인할 수 있습니다.', passwordUnlocked: '잠긴 단서를 조사할 수 있습니다.' },
   interviewHeading: '용의자들의 진술과 단서',
   letter: {
     from: '드라켄펠스 성의 의뢰인',
@@ -31,6 +32,7 @@ export const episode3 = {
     { id: 'isabella', name: '이사벨라', role: '공작 부인', portrait: 'assets/images/ep03_ph_03.png', bio: '올렉의 아내. 사건 당일 올렉과 다툰 사실을 숨기고 있다.', testimonyId: 'isabella', items: ['I-01', 'I-02', 'I-03'] },
     { id: 'bert', name: '버트', role: '집사', portrait: 'assets/images/ep03_ph_04.png', bio: '올렉을 오래 보좌해 온 집사로, 성의 구조와 열쇠를 잘 안다.', testimonyId: 'bert', items: ['B-01', 'B-02', 'B-03', 'B-04'] }
   ],
+  combinations: [],
   clues: [
     { id: 'F-01', name: '시신의 상태', phase: 1, kind: 'scene', position: { x: 51, y: 47 }, description: '올렉의 시신에는 결계 단검에 찔린 상처가 남아 있다. 입가에는 어두운 붉은색 거품이 보인다. 현장만으로는 출혈과 독의 영향 중 무엇이 사망 원인인지 확정하기 어렵다.' },
     { id: 'F-01-A', name: '상처의 상세 조사', phase: 1, kind: 'scene', position: { x: 58, y: 55 }, description: '시신을 자세히 살펴보니 단검에 의한 상처가 두 군데 발견된다. 두 상처가 언제, 어떤 경위로 생겼는지는 아직 알 수 없다. 이사벨라의 최초 공격과 사후 단검 재삽입을 구분할 단서다.' },
@@ -48,7 +50,7 @@ export const episode3 = {
     { id: 'L-04', name: '연구자의 신념', phase: 2, kind: 'suspect', suspectId: 'lucian', description: '연구 일지 마지막에는 “내 연구가 사라져야 한다면, 차라리 이 세상 따위 사라져도 좋다”라고 적혀 있다. 연구를 위해 타인의 생명과 세상의 질서도 희생할 수 있다는 가치관과 동기를 보여 주지만, 독살의 직접 증거는 아니다.' },
     { id: 'I-01', name: '피 묻은 수건과 와인병', phase: 2, kind: 'suspect', suspectId: 'isabella', description: '이사벨라의 방에서 피 묻은 수건과 개봉된 와인병이 발견됐다. 그녀는 올렉과 마실 와인을 미리 열어 두었다고 말한다. 피 묻은 수건은 단검 공격과 관련 있을 수 있지만, 이것만으로 살해를 입증하지는 않는다.' },
     { id: 'I-02', name: '평소 저택에 대하여', phase: 2, kind: 'suspect', suspectId: 'isabella', description: '올렉의 집무실에는 방음 마법이 걸려 있어 큰 소리도 2층 밖으로 새지 않는다고 한다. 그렇다면 22시에 들린 소리는 어떻게 성 전체에 들렸을까? F-03과 함께 살펴보자.' },
-    { id: 'I-03', name: '고해성사', phase: 2, kind: 'suspect', suspectId: 'isabella', requires: { all: ['B-03'] }, description: '이사벨라는 올렉과 다툰 뒤 성물 보관소에서 결계 단검을 가져와 21시 5분에 그를 찔렀다고 털어놓는다. 이후 단검을 회수해 방으로 가져왔지만, 목욕을 마치고 보니 사라져 있었다. 그녀의 공격 사실은 확정되지만 사망 원인이었다는 뜻은 아니다.' },
+    { id: 'I-03', name: '고해성사', phase: 2, kind: 'suspect', suspectId: 'isabella', locationText: '용의자 조사 → 이사벨라 → 조사 단서 → 고해성사', requires: { all: ['B-03'] }, description: '이사벨라는 올렉과 다툰 뒤 성물 보관소에서 결계 단검을 가져와 21시 5분에 그를 찔렀다고 털어놓는다. 이후 단검을 회수해 방으로 가져왔지만, 목욕을 마치고 보니 사라져 있었다. 그녀의 공격 사실은 확정되지만 사망 원인이었다는 뜻은 아니다.' },
     { id: 'B-01', name: '만능 열쇠', phase: 2, kind: 'suspect', suspectId: 'bert', description: '버트는 집무실을 포함한 여러 방과 잠금장치를 열 수 있는 만능 열쇠를 가지고 있다. 접근 수단은 있었지만 열쇠만으로 밀실 조작을 확정할 수는 없다.' },
     { id: 'B-02', name: '성의 오래된 구조도', phase: 2, kind: 'suspect', suspectId: 'bert', description: '오래된 구조도에는 집무실에서 1층 창고로 이어지는 비밀 통로가 표시되어 있다. 창고 입구 왼쪽에는 성물 보관소, 오른쪽에는 하인 숙소가 있다.' },
     { id: 'B-03', name: '이사벨라에 대한 진술', phase: 2, kind: 'suspect', suspectId: 'bert', description: '버트는 21시 10분쯤 이사벨라가 피 묻은 단검을 들고 급히 움직이는 것을 보았다고 한다. 올렉은 이사벨라와의 투자 계약을 취소하고 상속분을 회수하려 했다. 이 단서를 조사하면 이사벨라의 고해성사가 해금된다.' },

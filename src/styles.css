@@ -44,3 +44,6 @@
 
 /* Clue combination modal */
 .combination-options{max-height:34vh;overflow:auto;margin:12px 0}.selected-clues{border:1px solid var(--line);padding:12px;margin:16px 0}.selected-clue{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:6px 0}.selected-clue:last-child{border-bottom:0}.combination-options .note-item.selected,.combination-result{border-color:var(--gold)}.combination-result{margin:12px 0}.combination-options button:disabled,.modal-actions button:disabled{opacity:.42;cursor:not-allowed}
+
+/* Conditional unlock notices */
+.unlock-group{margin:18px 0}.unlock-item{display:flex;flex-direction:column;gap:4px;border:1px solid var(--line);padding:12px 14px;margin:8px 0;background:#191e19}.unlock-item strong{font:17px var(--serif)}.unlock-item small{color:var(--muted)}

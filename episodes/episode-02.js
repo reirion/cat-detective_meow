@@ -4,6 +4,7 @@ export const episode2 = {
   subtitle: '내 참치캔 돌려줘!',
   intro: '집사가 큰돈을 주고 사 온 수제 프리미엄 참치 캔이 거실 테이블 위에서 사라졌다. 집 안의 흔적과 네 명의 진술을 조사해 범인과 참치 캔의 행방을 밝혀내자.',
   investigationTurns: 7,
+  notifications: { clueUnlocked: '새로운 단서를 발견했습니다.', testimonyUnlocked: '새로운 대화가 열렸습니다.', passwordUnlocked: '잠긴 기록을 조사할 수 있습니다.' },
   interviewHeading: '용의자들의 진술과 단서',
   hideBasicTestimony: true,
   letter: {
@@ -25,6 +26,7 @@ export const episode2 = {
     {id:'gugu',name:'구구',role:'베란다 비둘기',portrait:'assets/images/ep02_ph_03.png',bio:'반짝이는 물건과 냄새에 민감하다.',testimonyId:'gugu',items:['E2-W-03']},
     {id:'robot',name:'싹싹이',role:'로봇 청소기',portrait:'assets/images/ep02_ph_04.png',bio:'최근 센서 이상이 있었던 것으로 보인다.',testimonyId:'robot',items:['E2-W-04']}
   ],
+  combinations: [],
   clues: [
     {id:'E2-S-01',name:'엎질러진 물그릇',phase:1,kind:'scene',position:{x:26,y:67},description:'물그릇이 엎어져 있다. 물은 소파와 로봇 청소기 충전기 방향으로 길게 쏟아져 있다.'},
     {id:'E2-S-02',name:'소파 구석의 의심스러운 박스',phase:1,kind:'scene',position:{x:78,y:61},description:'소파 구석에 종이 박스가 놓여 있다. 입구에는 무언가가 드나들며 남긴 듯한 가벼운 긁힌 자국이 있다.'},
