@@ -68,8 +68,7 @@ export function newlyUnlocked(before, after, alreadyNotified = []) {
   const result = [];
   for (const [key, next] of after) {
     const previous = before.get(key);
-    const unlockedNow = (previous?.state === 'locked' && ['password', 'available', 'found'].includes(next.state)) ||
-      (previous?.state === 'password' && next.state === 'available');
+    const unlockedNow = previous?.state === 'locked' && ['password', 'available', 'found'].includes(next.state);
     if (unlockedNow && !notified.has(key)) result.push(next);
   }
   return result;

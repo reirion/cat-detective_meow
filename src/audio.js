@@ -24,7 +24,9 @@ export function playEffect(name, settings) {
 }
 
 export function setMusic(episode, screen, settings) {
-  const selection = episode?.sound?.bgm?.[screen] ?? episode?.sound?.bgm?.[STATE_TRACK[screen]] ?? null;
+  const selection = screen === 'home'
+    ? 'assets/audio/sfx_main_bgm.mp3'
+    : episode?.sound?.bgm?.[screen] ?? episode?.sound?.bgm?.[STATE_TRACK[screen]] ?? null;
   const tracks = (Array.isArray(selection) ? selection : selection ? [selection] : []).filter(Boolean);
   if (!settings?.music || !tracks.length) {
     playlistToken++;

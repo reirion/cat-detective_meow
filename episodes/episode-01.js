@@ -2,12 +2,13 @@ export const episode = {
   id: 'ep-01', title: '사라진 등대지기', subtitle: '사라진 등대지기',
   intro: '해안 마을의 등대지기 에드윈이 어느 날 밤 사라졌다. 등대에는 수상한 흔적이 남고, 주민의 진술과 오래된 기록은 서로 맞지 않는다.',
   investigationTurns: 18,
+  recordRoom: true,
   notifications: { clueUnlocked: '새로운 단서를 조사할 수 있습니다.', testimonyUnlocked: '새로운 증언을 확인할 수 있습니다.', passwordUnlocked: '비밀번호가 필요한 단서를 조사할 수 있습니다.' },
   letter: {
     from: '마거릿', subject: '등대지기 에드윈의 실종', sign: '마거릿 드림',
     body: `탐정님께,\n\n해안 마을의 등대지기 에드윈이 어느 날 밤 사라졌습니다. 등대 주변에는 설명하기 어려운 흔적이 남아 있고, 주민들의 진술과 오래된 기록 사이에는 모순이 있습니다.\n\n에드윈이 어디로 갔는지, 그날 밤 등대에서 무슨 일이 있었는지 밝혀 주셨으면 합니다. 제가 아는 이야기는 모두 말씀드리겠습니다. 부디 등대와 마을 사람들을 살펴봐 주세요.`
   },
-  scene: { label: '북쪽 해안 · 등대 관리실과 지하 계단', art: 'assets/images/ep01_bg.png' },
+  scene: { label: '북쪽 해안', art: 'assets/images/ep01_bg.png' },
   witnesses: [
     { id:'margaret', name:'마거릿', role:'여관 주인', info:'마을 사람들에게 친절하고 믿음직한 여관 주인.', testimony:'밤 11시 50분 이후 등대 근처에 서있던 알버트 시장님을 봤어요.' },
     { id:'thomas', name:'토머스', role:'어부', info:'약 2년 전 다른 항구에서 이주해 왔다고 알려진 어부.', testimony:'항구에서 등대 신호가 짧게 세 번, 길게 세 번, 짧게 세 번 깜빡이는 것을 보았습니다. 정확한 시각은 확실하지 않습니다.' },
@@ -26,7 +27,7 @@ export const episode = {
     {id:'S-02',name:'등대 신호 장치',phase:1,kind:'scene',position:{x:21,y:11},description:'등대 신호 장치는 수동으로 조작할 수 있다. 조작 기록에는 신호 패턴과 관련된 흔적이 남아 있다. 토머스의 진술을 확인해봐야겠다.'},
     {id:'S-03',name:'조수표와 등대 기록',phase:1,kind:'scene',position:{x:70,y:38},description:'기록에는 이번 주 조수 변화가 표시되어 있다. 사건이 발생한 날은 23시 40분이 간조였다고 기록되어 있다. 간조는 바닷물이 가장 낮아지는 시기이다. 이를 잘 아는건 등대지기와 어부이다.'},
     {id:'S-04',name:'지하 계단과 젖은 흔적',phase:1,kind:'scene',position:{x:27,y:74},description:'젖은 발자국이 지하 계단으로 이어진다. 발자국과 소금 결정이 남은 벽을 따라가면 벽의 한쪽 방향에 흔적이 집중되어 있다. 숨겨진 공간이 있을 가능성과 그 방향을 알 수 있다. 여기서 더 깊은 곳의 실체는 아직 보이지 않는다.'},
-    {id:'S-05',name:'책상 아래의 작은 가죽 수첩',phase:1,kind:'scene',position:{x:70,y:75},description:'책상 아래에서 작은 가죽 수첩을 발견했다. 짧은 메모가 적혀있다. "협약? 바다? 진실은?"',passwordRequired:true,passwordAnswer:'SOS',passwordMode:'text',passwordCaseSensitive:false,passwordHint:'바다가 가장 낮아지는 때, 길은 열린다. 그 길을 아는 자는 신호를 기억한다.'},
+    {id:'S-05',name:'책상 아래의 작은 가죽 수첩',phase:1,kind:'scene',position:{x:70,y:75},description:'책상 아래에서 작은 가죽 수첩을 발견했다. 짧은 메모가 적혀있다.',original:'"협약? 바다? 진실은?"',passwordRequired:true,passwordAnswer:'SOS',passwordMode:'text',passwordCaseSensitive:false,passwordHint:'바다가 가장 낮아지는 때, 길은 열린다. 그 길을 아는 자는 신호를 기억한다.'},
     {id:'S-06',name:'소금 결정이 두껍게 쌓인 벽',phase:1,kind:'scene',position:{x:22,y:63},description:'일반적인 습기 흔적보다 두꺼운 소금 결정이 벽 일부에 집중되어 있다. 지하에 숨겨진 통로나 평소와 다른 환경이 존재할 수도 있다.'},
     {id:'F-01',name:'에드윈이 발견한 오래된 기록',phase:1,kind:'document',requires:{all:['S-04']},locationText:'현장 조사 → 기록 보관함 → 에드윈이 발견한 오래된 기록',description:'에드윈이 오래된 자료를 조사하며 남긴 메모.\n\n시장은 지하 공간에 관한 질문을 받을 때마다 설명을 바꾸었다. 과거 기록에는 현재 주민들이 설명하지 못하는 이름과 흔적이 있다. 어떤 사람에 관한 기록은 남아 있지만, 마을 사람들은 그 사람의 과거를 제대로 설명하지 못한다. 등대 지하의 비밀 공간과 오래된 협약 사이에 연관성이 있는 것 같다. 기록을 비교하면 현재 마을의 기억만으로는 설명할 수 없는 모순이 드러난다.\n\n협약의 발동 조건이나 내용에 대해서 좀 더 알아봐야겠다.'},
     {id:'F-02',name:'협약과 기억에 관한 문서',phase:1,kind:'document',requires:{all:['S-06']},locationText:'현장 조사 → 기록 보관함 → 협약과 기억에 관한 문서',passwordRequired:true,passwordAnswer:'기억',passwordMode:'text',passwordCaseSensitive:false,passwordHint:'바다가 원한 것, 우리에게 돌려주지 않은 것.',description:'오래전 마을은 위험한 파도로부터 보호받기 위해 바다와 협약을 맺었다. 협약은 제물의 기억을 대가로 삼는다. 바다가 가져가는 기억의 종류는 제물마다 다를 수 있다. 원래는 자발적인 제물의 동의를 바탕으로 했으나, 후대의 시장들은 제물 선정에 개입하고 뇌물을 받으며 관련 기록을 감추기 시작했다. 물리적인 기록은 남아있지만 사라진 기억은 바다가 사라지기 전까지 복구되지 않는다.'},
@@ -36,7 +37,7 @@ export const episode = {
     {id:'W-02-A',name:'배 출항 기록',phase:2,kind:'suspect',suspectId:'thomas',description:'출항 기록에는 다음과 같이 적혀있다.\n출항 예정 시각: 밤 11시 30분\n출항 확인:  \n담당 어부: 토머스\n\n확인 란이 비어있어 출항 여부를 알 수 없다.'},
     {id:'W-02-B',name:'오래된 장난감 배',phase:2,kind:'suspect',suspectId:'thomas',description:'오래된 나무 장난감 배가 발견되었다. 장난감 배에는 이 마을의 마크가 그려져 있다.'},
     {id:'W-02-C',name:'오래된 단체 사진에 관한 정보',phase:2,kind:'suspect',suspectId:'thomas',description:'토머스는 마을의 오래된 사진과 기록에 관심을 보였다. 사진 속 아이가 토머스인지 확정할 수는 없지만, 토머스와 상당히 닮았다. 토머스의 주장과 물리적인 기록을 비교할 필요가 있다.'},
-    {id:'W-02-D',name:'제물 선정 기록',phase:2,kind:'suspect',suspectId:'thomas',locationText:'용의자 조사 → 토머스 → 조사 단서 → 제물 선정 기록',requires:{all:['W-03-C']},passwordRequired:true,passwordMode:'direction',passwordAnswer:['up','left','right','left','right'],passwordHint:'이 기록을 열려면 알버트가 자주 하는 행동을 알아야 한다.',description:'협약 제물 선정 기록.\n\n"제물 : 마거릿 \n조건 : 주변인들의 인정, 호감" \n\n알버트가 마거릿을 제물로 올리기 위한 준비를 진행한 것 같다. 토머스는 개인적인 사정이 있어서 알버트의 집무실에서 훔쳐왔다고 말했다.'},
+    {id:'W-02-D',name:'제물 선정 기록',phase:2,kind:'suspect',suspectId:'thomas',locationText:'용의자 조사 → 토머스 → 제물 선정 기록',requires:{all:['W-03-C']},passwordRequired:true,passwordMode:'direction',passwordAnswer:['up','left','right','left','right'],passwordHint:'이 기록을 열려면 알버트가 자주 하는 행동을 알아야 한다.',description:'협약 제물 선정 기록.\n\n"제물 : 마거릿 \n조건 : 주변인들의 인정, 호감" \n\n알버트가 마거릿을 제물로 올리기 위한 준비를 진행한 것 같다. 토머스는 개인적인 사정이 있어서 알버트의 집무실에서 훔쳐왔다고 말했다.'},
     {id:'W-03-A',name:'출입 제한 공문',phase:2,kind:'suspect',suspectId:'albert',description:'올해 내려온 지하 공간의 출입을 제한한다는 공문이다. 제한 이유는 명확하게 설명되어 있지 않다. 알버트의 진술에서 지하 공간은 오래전에 폐쇄했다는 내용과 충돌한다.'},
     {id:'W-03-B',name:'오래된 기록',phase:2,kind:'suspect',suspectId:'albert',passwordRequired:true,passwordMode:'text',passwordAnswer:'ABT',passwordCaseSensitive:false,passwordHint:'이 기록을 열려면 알버트의 서명이 필요하다.',description:'협약은 매년 정해진 날짜와 시각에 발동한다. 시장이 제물의 이름을 적은 종이를 지하 마법진 위에 올려놓거나, 사람이 직접 마법진 위에 서면 발동한다.\n\n정해진 제물이 아니어도 협약의 발동에 휘말릴 수 있을 것으로 보인다. 에드윈이 휘말렸을 가능성도 있을까?'},
     {id:'W-03-C',name:'알버트의 수상한 행동',phase:2,kind:'suspect',suspectId:'albert',description:'에드윈의 행방을 정말 모르느냐고 묻자 알버트는 하늘을 한 번 바라보고 고개를 왼쪽, 오른쪽으로 두 번 돌렸다. 행동이 수상해 마을 사람들에게 물었더니 원래 자주 그런다는 답변을 받았다.'},

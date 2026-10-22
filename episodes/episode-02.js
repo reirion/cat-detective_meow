@@ -4,6 +4,7 @@ export const episode2 = {
   subtitle: '내 참치캔 돌려줘!',
   intro: '집사가 큰돈을 주고 사 온 수제 프리미엄 참치 캔이 거실 테이블 위에서 사라졌다. 집 안의 흔적과 네 명의 진술을 조사해 범인과 참치 캔의 행방을 밝혀내자.',
   investigationTurns: 7,
+  recordRoom: false,
   notifications: { clueUnlocked: '새로운 단서를 발견했습니다.', testimonyUnlocked: '새로운 대화가 열렸습니다.', passwordUnlocked: '잠긴 기록을 조사할 수 있습니다.' },
   interviewHeading: '용의자들의 진술과 단서',
   hideBasicTestimony: true,
