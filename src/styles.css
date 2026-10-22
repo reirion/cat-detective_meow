@@ -47,3 +47,4 @@
 
 /* Conditional unlock notices */
 .unlock-group{margin:18px 0}.unlock-item{display:flex;flex-direction:column;gap:4px;border:1px solid var(--line);padding:12px 14px;margin:8px 0;background:#191e19}.unlock-item strong{font:17px var(--serif)}.unlock-item small{color:var(--muted)}
+.settings-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:24px}.danger-btn{border:1px solid #9b554d;background:#542d29;color:#f0c8bf;padding:10px 15px;border-radius:2px}.danger-btn:hover{background:#6b3933;border-color:#cf8b76}.hero-title{white-space:nowrap;font-size:clamp(24px,4vw,50px);letter-spacing:.02em}
