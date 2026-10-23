@@ -1,12 +1,13 @@
 import { episode as episode1 } from '../episodes/episode-01.js?v=6';
 import { episode2 } from '../episodes/episode-02.js?v=3';
 import { episode3 } from '../episodes/episode-03.js?v=4';
+import { episode4 } from '../episodes/episode-04.js?v=2';
 import { setMusic, playEffect } from './audio.js';
 import { combineClues } from './combinations.js';
 import { captureUnlockStates, currentlyUnlockedUnacknowledged, newlyUnlocked } from './unlock-notifications.js';
 
 const GAME_TITLE = '고양이 탐정: 수상한 오후';
-const EPISODES = [episode1, episode2, episode3];
+const EPISODES = [episode1, episode2, episode3, episode4];
 const STORAGE_KEY = 'cat-detective.save.v2';
 const app = document.querySelector('#app');
 const defaultSettings = () => ({ music:true, sfx:true, musicVolume:35, sfxVolume:55 });
@@ -41,7 +42,7 @@ function sceneHotspot(c){const pos=c.position||{x:50,y:50},state=clueState(c);re
 function phaseOne(){
   const e=ep(),sceneClues=e.clues.filter(c=>c.phase===1&&c.kind==='scene'),docs=e.recordRoom?e.clues.filter(c=>c.phase===1&&c.kind==='document'&&(!c.requires||conditionMet(c.requires))):[],sceneStyle=e.scene.art?`background-image:url('${esc(e.scene.art)}');background-size:cover;background-position:center`:'';
   const recordRoom=e.recordRoom?`<section class="panel nested-panel"><div class="panel-head"><h3 class="suspect-heading">기록 보관함</h3><span class="eyebrow">SEALED RECORDS</span></div><div class="clue-list">${docs.map(clueRow).join('')||'<div class="empty">아직 보관할 기록을 찾지 못했습니다.</div>'}</div></section>`:'';
-  return `<div class="two-col"><section class="panel"><div class="panel-head"><h3 class="suspect-heading">현장 조사</h3><span class="eyebrow">SCENE INVESTIGATION</span></div><div class="scene" style="${sceneStyle}"><div class="scene-title">${esc(e.scene.label)}</div>${sceneClues.map(sceneHotspot).join('')}<div class="scene-caption">조사 지점을 눌러 흔적을 살펴보세요</div></div><div class="toolbar"><span class="muted">현장 단서 ${sceneClues.filter(c=>prog().found.includes(c.id)).length} / ${sceneClues.length}</span></div>${recordRoom}</section><aside class="panel"><div class="panel-head"><h3 class="suspect-heading">현장에서 발견한 단서</h3></div><p class="muted">발견한 단서만 다시 열 수 있습니다. 비밀번호 해금은 조사 횟수를 쓰지 않습니다.</p><div class="clue-list" style="margin-top:16px">${sceneClues.filter(c=>prog().found.includes(c.id)).map(clueRow).join('')||'<div class="empty">아직 현장 단서가 없습니다.</div>'}</div></aside></div><div class="toolbar"><div>${button('용의자 조사로 이동 →','phase2','ghost-btn')}</div></div>`
+  return `<div class="two-col"><section class="panel"><div class="panel-head"><h3 class="suspect-heading">현장 조사</h3><span class="eyebrow">현장 단서 ${sceneClues.filter(c=>prog().found.includes(c.id)).length} / ${sceneClues.length}</span></div><div class="scene" style="${sceneStyle}"><div class="scene-title">${esc(e.scene.label)}</div>${sceneClues.map(sceneHotspot).join('')}<div class="scene-caption">조사 지점을 눌러 흔적을 살펴보세요</div></div>${recordRoom}</section><aside class="panel"><div class="panel-head"><h3 class="suspect-heading">현장에서 발견한 단서</h3></div><p class="muted">발견한 단서만 다시 열 수 있습니다. 비밀번호 해금은 조사 횟수를 쓰지 않습니다.</p><div class="clue-list" style="margin-top:16px">${sceneClues.filter(c=>prog().found.includes(c.id)).map(clueRow).join('')||'<div class="empty">아직 현장 단서가 없습니다.</div>'}</div></aside></div><div class="toolbar"><div>${button('용의자 조사로 이동 →','phase2','ghost-btn')}</div></div>`
 }
 function phaseTwo(){const e=ep(),suspects=e.suspects.filter(s=>!s.requires||conditionMet(s.requires));return `<div class="section-head"><div><div class="eyebrow">INTERVIEWS / PERSONS OF INTEREST</div><h2 class="suspect-heading">${esc(e.interviewHeading||'용의자들의 증언과 기록')}</h2></div></div><div class="suspect-grid">${suspects.map(s=>{const items=s.items.map(clue).filter(c=>!c.requires||conditionMet(c.requires)),witness=e.witnesses.find(w=>w.id===s.testimonyId),extraTestimonies=(witness?.additionalTestimonies||witness?.testimonies||[]).filter(t=>!t.requires||conditionMet(t.requires));return `<section class="panel suspect-card"><div class="suspect-profile">${s.portrait?`<div class="portrait profile-portrait" style="background-image:linear-gradient(#15191420,#15191420),url('${esc(s.portrait)}')"></div>`:`<div class="portrait profile-portrait placeholder">${esc(s.name.slice(0,1))}</div>`}<div class="eyebrow profile-role">${esc(s.role)}</div><h3 class="profile-name">${esc(s.name)}</h3><p class="muted profile-bio">${esc(s.bio)}</p>${e.hideBasicTestimony?'':`<details class="testimony"><summary>기본 진술 보기</summary><p>${esc(witness?.testimony||'')}</p></details>`}${extraTestimonies.map(t=>`<details class="testimony newly-unlocked-testimony"><summary>${esc(t.name||'새로운 증언')}</summary><p>${esc(t.text||t.testimony||'')}</p></details>`).join('')}</div><div class="suspect-evidence"><div class="panel-head"><h3 class="suspect-heading"> </h3><span class="eyebrow">${items.length}개의 단서</span></div><div class="clue-list">${items.map(clueRow).join('')||'<div class="empty">현재 확인할 수 있는 단서가 없습니다.</div>'}</div></div></section>`}).join('')}</div><div class="toolbar"><div>${button('← 현장 조사로 이동','phase1','ghost-btn')}</div></div>`}
 function investigationScreen(){const p=prog();return `<main class="page">${progress()}${p.phase===1?`<div class="section-head"><div><h2 >${esc(ep().subtitle)}</h2><p class="muted">단서를 조사할 때 ${p.turns}회 중 1회가 차감됩니다.</p></div></div>`:''}${p.phase===1?phaseOne():phaseTwo()}${feedback?`<p class="hint">${esc(feedback)}</p>`:''}</main>`}
@@ -56,8 +57,8 @@ function settingsModal(){const s=save.settings;return `<div class="modal-backdro
 function resetDataModal(){return `<div class="modal-backdrop"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="reset-data-title"><div class="eyebrow">RESET CASE ARCHIVE</div><h2 id="reset-data-title">데이터를 초기화할까요?</h2><p class="clue-detail">닉네임, 보유 츄르, 모든 에피소드의 수사 진행도가 초기화됩니다. 초기화 후 새 닉네임을 설정하면 시작 츄르 3개를 다시 받습니다.</p><div class="modal-actions">${button('취소','close-modal','ghost-btn')}${button('초기화','confirm-reset-data','danger-btn')}</div></section></div>`}
 function notesModal(){const found=ep().clues.filter(c=>prog().found.includes(c.id));return `<div class="modal-backdrop"><section class="modal"><div class="eyebrow">INVESTIGATION NOTES</div><h2 class="suspect-heading">수사 노트</h2><div class="note-grid">${found.length?found.map(c=>`<button class="note-item" data-action="clue" data-id="${c.id}"><strong>${esc(c.name)}</strong><small>${esc(c.description.slice(0,110))}${c.description.length>110?'…':''}</small></button>`).join(''):'<div class="empty">아직 발견한 단서가 없습니다.</div>'}</div><div class="modal-actions">${button('단서 조합','open-combination','primary-btn')}${button('닫기','close-modal','primary-btn')}</div></section></div>`}
 function combinationModal(){const state=modal,selected=state.selected||[],found=ep().clues.filter(c=>prog().found.includes(c.id)),selectedClues=selected.map(clue).filter(Boolean),result=state.resultClueId?clue(state.resultClueId):null;return `<div class="modal-backdrop"><section class="modal"><div class="eyebrow">CLUE COMBINATION</div><h2>단서 조합</h2><p class="muted">발견한 단서 중 연결할 두 개를 선택하세요. 조합은 조사 횟수를 쓰지 않습니다.</p>${state.message?`<p class="hint" role="status">${esc(state.message)}</p>`:''}${result?`<article class="note-item combination-result"><strong>새 단서 발견 · ${esc(result.name)}</strong><small>${esc(result.description)}</small>${button('결과 단서 열기','combination-result-clue','text-btn')}</article>`:''}<div class="selected-clues"><div class="eyebrow">선택한 단서 ${selected.length} / 2</div>${selectedClues.length?selectedClues.map(c=>`<div class="selected-clue"><span>${esc(c.name)}</span>${button('선택 취소','remove-combination-clue','text-btn',`data-id="${esc(c.id)}"`)}</div>`).join(''):'<p class="muted">아직 선택한 단서가 없습니다.</p>'}</div><div class="note-grid combination-options">${found.length?found.map(c=>{const isSelected=selected.includes(c.id),disabled=selected.length>=2&&!isSelected;return `<button class="note-item ${isSelected?'selected':''}" data-action="toggle-combination-clue" data-id="${esc(c.id)}" ${disabled?'disabled':''} aria-pressed="${isSelected}"><strong>${isSelected?'✓ ':''}${esc(c.name)}</strong><small>${esc(c.description.slice(0,110))}${c.description.length>110?'…':''}</small></button>`}).join(''):'<div class="empty">조합할 단서가 없습니다. 먼저 수사 중 단서를 발견해 주세요.</div>'}</div><div class="modal-actions">${button('선택 해제','clear-combination-selection','text-btn',selected.length?'':'disabled')}${button('취소','cancel-combination','ghost-btn')}${button('조합하기','submit-combination','primary-btn',selected.length===2?'':'disabled')}</div></section></div>`}
-function passwordModal(c){const mode=c.passwordMode||'text',unset=c.passwordAnswer==null;const sequence=mode==='mixed'?esc(passwordDraft).replaceAll('{up}','↑').replaceAll('{down}','↓').replaceAll('{left}','←').replaceAll('{right}','→'):passwordDraft.split(',').map(x=>({up:'↑',down:'↓',left:'←',right:'→'}[x]||x)).join('　');return `<div class="modal-backdrop"><section class="modal"><div class="eyebrow">SEALED EVIDENCE</div><h2>${esc(c.name)}</h2><p class="muted">비밀번호 입력은 조사 횟수를 소모하지 않습니다. 해금된 문서는 무료로 다시 열 수 있습니다.</p>${c.passwordHint?`<p class="hint">암호 힌트 · ${esc(c.passwordHint)}</p>`:''}${unset?'<div class="empty">이 증거의 비밀번호는 사용자가 지정할 예정입니다. 정답을 임의로 설정하지 않았습니다.</div>':`${feedback?`<p class="hint">${esc(feedback)}</p>`:''}${mode!=='direction'?`<input class="password-input" id="pass-input" autocomplete="off" placeholder="비밀번호를 입력하세요" value="${esc(passwordDraft)}">`:''}${mode!=='text'?`<div class="arrow-seq">${sequence||'방향을 입력하세요'}</div><div class="arrow-pad"><span></span><button data-action="arrow" data-dir="up">↑</button><span></span><button data-action="arrow" data-dir="left">←</button><button data-action="arrow" data-dir="down">↓</button><button data-action="arrow" data-dir="right">→</button></div>`:''}`}<div class="modal-actions">${mode!=='text'&&!unset?button('초기화','clear-password','ghost-btn'):''}${button('취소','close-modal','ghost-btn')}${unset?'':button('해금','submit-password','primary-btn')}</div></section></div>`}
-function clueModal(c){return `<div class="modal-backdrop"><section class="modal"><div class="eyebrow">${c.kind==='scene'?'SCENE EVIDENCE':c.kind==='document'?'SEALED RECORD':'INTERVIEW EVIDENCE'}</div><h2>${esc(c.name)}</h2>${c.image?`<img class="clue-image" src="${esc(c.image)}" alt="${esc(c.name)}">`:''}<div class="clue-detail">${esc(c.description)}</div>
+function passwordModal(c){const mode=c.passwordMode||'text',unset=c.passwordAnswer==null;const sequence=mode==='mixed'?esc(passwordDraft).replaceAll('{up}','↑').replaceAll('{down}','↓').replaceAll('{left}','←').replaceAll('{right}','→'):passwordDraft.split(',').map(x=>({up:'↑',down:'↓',left:'←',right:'→'}[x]||x)).join('　');return `<div class="modal-backdrop"><section class="modal"><div class="eyebrow">SEALED EVIDENCE</div><h2 class="password-modal-title">${esc(c.name)}</h2><p class="muted">비밀번호 입력은 조사 횟수를 소모하지 않습니다. 해금된 문서는 무료로 다시 열 수 있습니다.</p>${c.passwordHint?`<p class="hint">암호 힌트 · ${esc(c.passwordHint)}</p>`:''}${unset?'<div class="empty">이 증거의 비밀번호는 사용자가 지정할 예정입니다. 정답을 임의로 설정하지 않았습니다.</div>':`${feedback?`<p class="hint">${esc(feedback)}</p>`:''}${mode!=='direction'?`<input class="password-input" id="pass-input" autocomplete="off" placeholder="비밀번호를 입력하세요" value="${esc(passwordDraft)}">`:''}${mode!=='text'?`<div class="arrow-seq">${sequence||'방향을 입력하세요'}</div><div class="arrow-pad"><span></span><button data-action="arrow" data-dir="up">↑</button><span></span><button data-action="arrow" data-dir="left">←</button><button data-action="arrow" data-dir="down">↓</button><button data-action="arrow" data-dir="right">→</button></div>`:''}`}<div class="modal-actions">${mode!=='text'&&!unset?button('초기화','clear-password','ghost-btn'):''}${button('취소','close-modal','ghost-btn')}${unset?'':button('해금','submit-password','primary-btn')}</div></section></div>`}
+function clueModal(c){return `<div class="modal-backdrop"><section class="modal"><div class="eyebrow">${c.kind==='scene'?'SCENE EVIDENCE':c.kind==='document'?'SEALED RECORD':'INTERVIEW EVIDENCE'}</div><h2 class="clue-modal-title">${esc(c.name)}</h2>${c.image?`<img class="clue-image" src="${esc(c.image)}" alt="${esc(c.name)}">`:''}<div class="clue-detail">${esc(c.description)}</div>
 ${c.original ? `
     <div class="clue-original">${esc(c.original)}</div>
 ` : ''}
@@ -80,8 +81,9 @@ function answerPassword(){
   const c=modal.clue;
   if(c.passwordAnswer==null)return;
   let ok=false;
-  if(c.passwordMode==='direction'){
-    const got=passwordDraft.split(',').filter(Boolean),want=c.passwordAnswer;
+  if(c.passwordMode==='direction'||c.passwordMode==='mixed'){
+    const got=c.passwordMode==='mixed'?[...(passwordDraft.matchAll(/\{(up|down|left|right)\}/g))].map(match=>match[1]):passwordDraft.split(',').filter(Boolean);
+    const want=Array.isArray(c.passwordAnswer)?c.passwordAnswer:String(c.passwordAnswer).split(',').filter(Boolean);
     ok=got.length===want.length&&got.every((x,i)=>x===want[i]);
   }else{
     const got=(document.querySelector('#pass-input')?.value||'').trim(),want=String(c.passwordAnswer).trim();
@@ -97,7 +99,30 @@ function answerPassword(){
   modal=null;feedback='비밀번호가 확인되었습니다. 조사 횟수와 츄르가 없어 단서를 열람할 수 없습니다.';render();
 }
 function normalized(text){return String(text||'').toLocaleLowerCase().replace(/\s+/g,' ')}
-function writtenCorrect(q,a){const text=normalized(a.text);if(q.keywordAny)return q.keywordAny.some(term=>text.includes(normalized(term)));const keywords=q.keywords||(q.requirements||[]).map(group=>group[0]);return keywords.every(term=>text.includes(normalized(term)))}
+
+function writtenCorrect(q,a){
+    const text = normalized(a.text);
+
+    if(q.keywordAny){
+        return q.keywordAny.some(term =>
+            text.includes(normalized(term))
+        );
+    }
+
+    if(q.requirements){
+        return q.requirements.every(group =>
+            group.some(term =>
+                text.includes(normalized(term))
+            )
+        );
+    }
+
+    const keywords = q.keywords || [];
+    return keywords.every(term =>
+        text.includes(normalized(term))
+    );
+}
+
 function questionHasAnswer(q){const a=answerState(q.id);return q.type==='choice'?Boolean(a.choice):Boolean(a.text.trim())}
 function questionIsCorrect(q){const a=answerState(q.id);if(q.type==='choice')return a.choice===q.answer;const evidenceCorrect=q.requiredEvidenceCount!=null?q.requiredEvidence.filter(id=>a.evidence.includes(id)).length>=q.requiredEvidenceCount:(q.requiredEvidence||[]).every(id=>a.evidence.includes(id));return evidenceCorrect&&writtenCorrect(q,a)}
 function submitAllAnswers(){const p=prog(),questions=ep().deduction.questions,total=questions.length;if(!questions.every(questionHasAnswer)){feedback='모든 문항에 답한 뒤 제출해 주세요.';return render()}for(const q of questions){const a=answerState(q.id);a.correct=questionIsCorrect(q);a.feedback=a.correct?'정답입니다.':'오답입니다.'}p.score=questions.filter(q=>p.answers[q.id].correct).length;p.resultTier=p.score===total?'perfect':p.score>=Math.ceil(total/2)?'partial':'failed';p.deductionSubmitted=true;p.truthUnlocked=true;persist();feedback='';setScreen('result')}
@@ -108,6 +133,17 @@ app.addEventListener('click',ev=>{const b=ev.target.closest('[data-action]');if(
 );
 app.addEventListener('input',ev=>{if(ev.target.id==='nickname-input'){nicknameDraft=ev.target.value;return}updateInput(ev.target)});
 app.addEventListener('change',ev=>updateInput(ev.target));
-app.addEventListener('keydown',ev=>{if(modal?.type==='password'&&modal.clue.passwordMode!=='text'){const map={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};if(map[ev.key]){ev.preventDefault();if(!ev.repeat){passwordDraft+=(modal.clue.passwordMode==='mixed'?`{${map[ev.key]}}`:passwordDraft?',':'')+(modal.clue.passwordMode==='mixed'?'':map[ev.key]);render()}}}if(ev.key==='Escape'&&modal?.type==='unlock-notification')return;if(ev.key==='Escape'&&modal&&modal!=='nickname'){modal=null;feedback='';render()}if(ev.key==='Enter'&&modal?.type==='password'&&modal.clue.passwordMode==='text')answerPassword()});
+document.addEventListener('keydown',ev=>{
+  const mode=modal?.type==='password'?modal.clue.passwordMode||'text':'text';
+  const directions={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
+  if(mode!=='text'&&directions[ev.key]){
+    ev.preventDefault();ev.stopPropagation();
+    if(!ev.repeat){if(mode==='mixed')passwordDraft+=`{${directions[ev.key]}}`;else passwordDraft+=(passwordDraft?',':'')+directions[ev.key];render()}
+    return;
+  }
+  if(ev.key==='Escape'&&modal?.type==='unlock-notification')return;
+  if(ev.key==='Escape'&&modal&&modal!=='nickname'){modal=null;feedback='';render()}
+  if(ev.key==='Enter'&&modal?.type==='password'&&mode==='text')answerPassword();
+});
 app.addEventListener('submit',ev=>{ev.preventDefault();if(ev.target.id==='nickname-form')saveNickname()});
 setMusic(musicEpisode(),screen,save.settings);render();
