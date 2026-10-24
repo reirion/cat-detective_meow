@@ -37,12 +37,12 @@ export const episode3 = {
     { id: 'ep03-wine-liquid-analysis', clueIds: ['F-02', 'L-01'], resultClueId: 'F-06', successMessage: '깨진 와인잔과 루시안의 약병에서 나온 액체 성분을 비교했다.' }
   ],
   clues: [
-    { id: 'F-01', name: '시신의 상태', phase: 1, kind: 'scene', position: { x: 51, y: 47 }, description: '올렉의 시신에는 결계 단검에 찔린 상처가 남아 있다. 입가에는 어두운 붉은색 거품이 보인다. 시신만 보아서는 무엇이 사망 원인인지 확정하기 어렵다.' },
-    { id: 'F-01-A', name: '상처의 상세 조사', phase: 1, kind: 'scene', requires:{all:['F-01']}, position: { x: 58, y: 55 }, description: '시신을 자세히 살펴보니 단검에 의한 상처가 두 개로 밝혀졌다. 상처가 언제, 어떤 경위로 생겼는지는 아직 알 수 없다. 다만 가슴에 단검으로 두 번 찔린 것은 확실하다.' },
-    { id: 'F-02', name: '깨진 와인잔', phase: 1, kind: 'scene', position: { x: 35, y: 72 }, description: '깨진 잔에는 선명한 붉은색 액체가 남아 있다. 액체의 색만으로는 와인인지 독이 섞인 액체인지 판단하기 어렵다. 다른 용의자의 소지품에서 발견된 붉은 액체와 성분을 비교해야겠다.' },
-    { id: 'F-03', name: '시간 지연 스크롤', phase: 1, kind: 'scene', position: { x: 71, y: 31 }, description: '책상에는 사용된 시간 지연 스크롤의 흔적이 남아 있다. 작동 15분 뒤 소리를 내는 종류다. 스크롤로 인해 나는 소리는 집무실 안이 아니라 성 전체에 들릴 수 있다.' },
-    { id: 'F-04', name: '책장 뒤 비밀 통로', phase: 1, kind: 'scene', position: { x: 22, y: 40 }, description: '집무실 책장 뒤에는 1층 창고로 이어지는 숨겨진 통로가 있다. 안쪽 잠금장치는 풀려 있다. 집무실에서 다른 경로로 나갈 수 있었음을 보여 주지만 이용자를 특정하지는 못한다.' },
-    { id: 'F-05', name: '찢어진 노트 조각', phase: 1, kind: 'scene', position: { x: 78, y: 68 }, original: '“30년 전 나의 가문을 도륙한 것은 황후가 아닌 바로 현 영주 올렉이었다. 내 손으로 가문의 복수를 완수하리라.”',description: '작성자의 이름은 적혀 있지 않다.' },
+    { id: 'F-01', name: '시신의 상태', phase: 1, kind: 'scene', position: { x: 35, y: 22 }, description: '올렉의 시신에는 결계 단검에 찔린 상처가 남아 있다. 입가에는 어두운 붉은색 거품이 보인다. 시신만 보아서는 무엇이 사망 원인인지 확정하기 어렵다.' },
+    { id: 'F-01-A', name: '상처의 상세 조사', phase: 1, kind: 'scene', requires:{all:['F-01']}, position: { x: 37, y: 30 }, description: '시신을 자세히 살펴보니 단검에 의한 상처가 두 개로 밝혀졌다. 상처가 언제, 어떤 경위로 생겼는지는 아직 알 수 없다. 다만 가슴에 단검으로 두 번 찔린 것은 확실하다.' },
+    { id: 'F-02', name: '깨진 와인잔', phase: 1, kind: 'scene', position: { x: 66, y: 73 }, description: '깨진 잔에는 선명한 붉은색 액체가 남아 있다. 액체의 색만으로는 와인인지 독이 섞인 액체인지 판단하기 어렵다. 다른 용의자의 소지품에서 발견된 붉은 액체와 성분을 비교해야겠다.' },
+    { id: 'F-03', name: '시간 지연 스크롤', phase: 1, kind: 'scene', position: { x: 13, y: 45 }, description: '책상에는 사용된 시간 지연 스크롤의 흔적이 남아 있다. 작동 15분 뒤 소리를 내는 종류다. 스크롤로 인해 나는 소리는 집무실 안이 아니라 성 전체에 들릴 수 있다.' },
+    { id: 'F-04', name: '책장 뒤 비밀 통로', phase: 1, kind: 'scene', position: { x: 85, y: 40 }, description: '집무실 책장 뒤에는 1층 창고로 이어지는 숨겨진 통로가 있다. 안쪽 잠금장치는 풀려 있다. 집무실에서 다른 경로로 나갈 수 있었음을 보여 주지만 이용자를 특정하지는 못한다.' },
+    { id: 'F-05', name: '찢어진 노트 조각', phase: 1, kind: 'scene', position: { x: 90, y: 68 }, original: '“30년 전 나의 가문을 도륙한 것은 황후가 아닌 바로 현 영주 올렉이었다. 내 손으로 가문의 복수를 완수하리라.”',description: '작성자의 이름은 적혀 있지 않다.' },
     { id: 'F-06', name: '성분 조사 결과', phase: 2, kind: 'suspect', suspectId: 'lucian', combinationOnly: true, locationText: ' ', description: '깨진 와인잔에 있던 액체 성분이 루시안이 가진 액체와 유사한 성분이라는 결과가 나왔다.' },
     { id: 'E-01', name: '비어 있는 성물', phase: 2, kind: 'suspect', suspectId: 'elena', description: '성물 보관소에 있던 결계 단검이 사라졌다. 자물쇠에는 열쇠를 사용한 흔적이 있고 강제로 부순 흔적은 없다. 보관소 열쇠는 엘레나와 올렉이 가지고 있었다.' },
     { id: 'E-02', name: '방문 이유', phase: 2, kind: 'suspect', suspectId: 'elena', description: '“각 지역의 영주들은 성물을 관리할 의무가 있습니다. 의무를 잘 지키고 있는지 확인하러 온 건데 곤란하게 됐습니다. 올렉 영주가 비열한 짓을 일삼으며 다른 귀족들을 하나씩 삼킨다는 건 아는 사람들은 아는 이야기입니다. 아마 그는 신의 곁에 닿지 못했을 겁니다.”' },
